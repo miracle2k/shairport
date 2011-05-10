@@ -555,8 +555,8 @@ sub digest_ok {
 sub conn_handle_request {
     my ($fh, $conn) = @_;
 
-    my $req = $conn->{req};;
-    my $clen = $req->header('content-length') || 0;
+    my $req = $conn->{req};
+    my $clen = defined($req->header('content-length') ) ? $req->header('content-length') : 0;
     if ($clen > 0 && !length($req->content)) {
         $conn->{req_need} = $clen;
         return; # need more!
